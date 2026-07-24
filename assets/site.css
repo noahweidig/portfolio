@@ -293,25 +293,60 @@ body {
   gap: 1.25rem;
 }
 
-.nw-stack-items {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem 2.75rem;
-}
-
 .nw-stack-cat {
   text-align: center;
 }
 
+/* Each card holds exactly four items, laid out as a strict grid so the card
+   is always 4x1, 2x2, or 1x4 — never a ragged 3+1 flex wrap that spills text
+   out of the card. */
+.nw-stack-items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  align-content: center;
+  gap: 1.25rem 1rem;
+}
+
+@media (max-width: 560px) {
+  .nw-stack-items {
+    grid-template-columns: repeat(2, 1fr); /* 2x2 */
+  }
+}
+
+@media (max-width: 360px) {
+  .nw-stack-items {
+    grid-template-columns: 1fr; /* 1x4 */
+  }
+}
+
 .nw-stack-item {
-  font-size: 0.95rem;
-  gap: 0.6rem;
+  font-size: 0.9rem;
+  gap: 0.55rem;
 }
 
 .nw-stack-item img {
-  width: 3.25rem;
-  height: 3.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+/* Deck-peel cards are absolutely positioned and fill their .nw-stack, so the
+   stack needs enough height for the current grid or the text falls out the
+   bottom. Size it per breakpoint to match the 4x1 / 2x2 / 1x4 layouts. */
+.nw-deck-track.is-deck .nw-stack {
+  height: 15rem;
+}
+
+@media (max-width: 560px) {
+  .nw-deck-track.is-deck .nw-stack {
+    height: 21rem; /* two rows */
+  }
+}
+
+@media (max-width: 360px) {
+  .nw-deck-track.is-deck .nw-stack {
+    height: 30rem; /* four rows */
+  }
 }
 
 
