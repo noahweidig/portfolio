@@ -75,17 +75,25 @@
       var z1 = -d.x * sinY + d.z * cosY;
       var y2 = d.y * cosX - z1 * sinX;
       var z2 = d.y * sinX + z1 * cosX;
-      projected.push({ z: z2, sx: c + x1 * radius, sy: c - y2 * radius });
+      // Keep the rotated surface normal (x1, y2, z2) so each dot can be drawn
+      // as a foreshortened disc lying flat on the sphere rather than a
+      // camera-facing circle.
+      projected.push({ z: z2, nx: x1, ny: y2, sx: c + x1 * radius, sy: c - y2 * radius });
     }
     projected.sort(function (a, b) {
       return a.z - b.z;
     });
-    var dotMax = Math.max(1.4, size * 0.006);
+    var dotR = Math.max(1.4, size * 0.006);
     for (var j = 0; j < projected.length; j++) {
       var p = projected[j];
-      var depth = (p.z + 1) / 2; // 0 = far side, 1 = near side
+      const depth = (p.z + 1) / 2; // 0 = far side, 1 = near side
+      // A flat disc on the surface projects to an ellipse: its minor axis lies
+      // along the projected normal and shrinks by |normal·view| = |z2|, so
+      // dots near the limb foreshorten to slivers instead of staying round.
+      const minor = dotR * Math.abs(p.z);
+      const angle = Math.atan2(-p.ny, p.nx); // screen-space normal direction
       ctx.beginPath();
-      ctx.arc(p.sx, p.sy, dotMax * (0.4 + 0.6 * depth), 0, Math.PI * 2);
+      ctx.ellipse(p.sx, p.sy, minor, dotR, angle, 0, Math.PI * 2);
       ctx.fillStyle = "rgba(" + DOT_COLOR + "," + (0.08 + 0.82 * depth) + ")";
       ctx.fill();
     }
