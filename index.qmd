@@ -183,43 +183,47 @@ include-after-body:
   <div class="nw-section-inner">
     <h2 class="nw-title">Tech Stack</h2>
     <p class="nw-subtitle">Technologies I use to build things</p>
+    <div class="nw-deck-track">
+      <div class="nw-deck-vp">
     <div class="nw-stack">
-      <div class="nw-stack-cat"><h3>Languages</h3><div class="nw-stack-items">
+      <div class="nw-stack-cat t-emerald"><h3>Languages</h3><div class="nw-stack-items">
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/r-original.svg" alt="" loading="lazy">R</span>
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/python-original.svg" alt="" loading="lazy">Python</span>
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/javascript-original.svg" alt="" loading="lazy">JavaScript</span>
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/azuresqldatabase-original.svg" alt="" loading="lazy">SQL</span>
       </div></div>
-      <div class="nw-stack-cat"><h3>Markup</h3><div class="nw-stack-items">
+      <div class="nw-stack-cat t-amber"><h3>Markup</h3><div class="nw-stack-items">
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/markdown-original.svg" alt="" loading="lazy" class="nw-inv">Markdown</span>
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/latex-original.svg" alt="" loading="lazy" class="nw-inv">LaTeX</span>
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/html5-original.svg" alt="" loading="lazy">HTML</span>
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/css3-original.svg" alt="" loading="lazy">CSS</span>
       </div></div>
-      <div class="nw-stack-cat"><h3>Workflows</h3><div class="nw-stack-items">
+      <div class="nw-stack-cat t-sky"><h3>Workflows</h3><div class="nw-stack-items">
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/git-original.svg" alt="" loading="lazy">Git</span>
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/github-original.svg" alt="" loading="lazy" class="nw-inv">GitHub</span>
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/githubactions-original.svg" alt="" loading="lazy">Actions</span>
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/anaconda-original.svg" alt="" loading="lazy">Conda</span>
       </div></div>
-      <div class="nw-stack-cat"><h3>Libraries</h3><div class="nw-stack-items">
+      <div class="nw-stack-cat t-fuchsia"><h3>Libraries</h3><div class="nw-stack-items">
         <span class="nw-stack-item"><img src="assets/media/icons/custom/tidyverse.svg" alt="" loading="lazy">tidyverse</span>
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/pandas-original.svg" alt="" loading="lazy" class="nw-inv">pandas</span>
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/numpy-original.svg" alt="" loading="lazy">NumPy</span>
         <span class="nw-stack-item"><img src="assets/media/icons/devicon/plotly-original.svg" alt="" loading="lazy">Plotly</span>
       </div></div>
-      <div class="nw-stack-cat"><h3>GIS</h3><div class="nw-stack-items">
+      <div class="nw-stack-cat t-lime"><h3>GIS</h3><div class="nw-stack-items">
         <span class="nw-stack-item"><img src="assets/media/icons/custom/arcgis.svg" alt="" loading="lazy">ArcGIS Pro</span>
         <span class="nw-stack-item"><img src="assets/media/icons/custom/gee.svg" alt="" loading="lazy">GEE</span>
         <span class="nw-stack-item"><img src="assets/media/icons/custom/qgis.svg" alt="" loading="lazy">QGIS</span>
         <span class="nw-stack-item"><img src="assets/media/icons/custom/gdal.svg" alt="" loading="lazy">GDAL</span>
       </div></div>
-      <div class="nw-stack-cat"><h3>GIS Tools</h3><div class="nw-stack-items">
+      <div class="nw-stack-cat t-rose"><h3>GIS Tools</h3><div class="nw-stack-items">
         <span class="nw-stack-item"><img src="assets/media/icons/custom/sf.svg" alt="" loading="lazy">sf</span>
         <span class="nw-stack-item"><img src="assets/media/icons/custom/terra.svg" alt="" loading="lazy">terra</span>
         <span class="nw-stack-item"><img src="assets/media/icons/custom/geopandas.svg" alt="" loading="lazy">GeoPandas</span>
         <span class="nw-stack-item"><img src="assets/media/icons/custom/openstreetmap.svg" alt="" loading="lazy">OSM</span>
       </div></div>
+    </div>
+      </div>
     </div>
   </div>
 </section>
