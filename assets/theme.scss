@@ -787,11 +787,69 @@ a.nw-card:hover h3 {
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
 }
 
+/* Per-card hue for the tech-stack cards — the same gentle two-tone wash the
+   research-area cards use, keyed to each category. The tint stays subtle in
+   both themes via --nw-tint; cards without a hue fall back to plain --nw-card. */
+.nw-stack-cat.t-emerald { --c1: #34d399; --c2: #14b8a6; }
+.nw-stack-cat.t-amber   { --c1: #fbbf24; --c2: #f97316; }
+.nw-stack-cat.t-sky     { --c1: #38bdf8; --c2: #0076DF; }
+.nw-stack-cat.t-fuchsia { --c1: #e879f9; --c2: #a855f7; }
+.nw-stack-cat.t-lime    { --c1: #a3e635; --c2: #16a34a; }
+.nw-stack-cat.t-rose    { --c1: #fb7185; --c2: #ef4444; }
+
 .nw-stack-cat {
-  background: var(--nw-card);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--c1, var(--nw-card)) var(--nw-tint), var(--nw-card)),
+    color-mix(in srgb, var(--c2, var(--nw-card)) var(--nw-tint), var(--nw-card))
+  );
   border: 1px solid var(--nw-border);
   border-radius: 1rem;
   padding: 1.5rem;
+}
+
+.nw-stack-cat:hover {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--c1, var(--nw-card)) var(--nw-tint-hover), var(--nw-card)),
+    color-mix(in srgb, var(--c2, var(--nw-card)) var(--nw-tint-hover), var(--nw-card))
+  );
+}
+
+/* Deck-peel: home.js adds .is-deck when motion is allowed so the tech-stack
+   cards stack in a sticky viewport and peel off one-by-one on scroll. Without
+   the class (no-JS or reduced-motion) the wrappers collapse to display:contents
+   and the cards stay in their normal responsive grid. */
+.nw-deck-track,
+.nw-deck-vp { display: contents; }
+
+.nw-deck-track.is-deck { display: block; position: relative; }
+
+.nw-deck-track.is-deck .nw-deck-vp {
+  display: flex;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.nw-deck-track.is-deck .nw-stack {
+  display: block;
+  position: relative;
+  width: min(560px, 92vw);
+  height: 200px;
+}
+
+.nw-deck-track.is-deck .nw-stack-cat {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transform-origin: center bottom;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+  will-change: transform, opacity;
 }
 
 .nw-stack-cat h3 {

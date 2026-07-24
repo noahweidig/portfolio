@@ -121,7 +121,7 @@
   if (!reducedMotion && "IntersectionObserver" in window) {
     var revealables = document.querySelectorAll(
       ".nw-section .nw-title, .nw-section .nw-subtitle, .nw-section .nw-lead, " +
-        ".nw-stat, .nw-card, .nw-proj-wrap, .nw-cite, .nw-post, .nw-stack-cat, " +
+        ".nw-stat, .nw-card, .nw-proj-wrap, .nw-cite, .nw-post, " +
         ".nw-tl-item, .nw-award, .nw-faq details, .nw-contact-card, .nw-globe-wrap, " +
         ".nw-cta-card, .nw-marquee"
     );
@@ -149,6 +149,79 @@
       below.forEach(function (el) {
         el.classList.add("nw-reveal");
         io.observe(el);
+      });
+    }
+  }
+
+  // Tech-stack deck peel: the category cards stack in a sticky viewport and
+  // peel off one at a time as the section scrolls, promoting the card beneath
+  // into the top slot. Motion-only — reduced-motion users keep the plain grid.
+  var deckTrack = document.querySelector(".nw-deck-track");
+  if (deckTrack && !reducedMotion) {
+    var deckCards = Array.prototype.slice.call(
+      deckTrack.querySelectorAll(".nw-stack-cat")
+    );
+    var deckTotal = deckCards.length;
+    if (deckTotal > 1) {
+      var PER = 400; // px of scroll per card peel
+      var baseTY = function (d) {
+        return d * 10;
+      }; // resting offset (px) by depth in deck
+      var baseSC = function (d) {
+        return 1 - d * 0.03;
+      }; // resting scale by depth
+
+      deckTrack.classList.add("is-deck");
+      deckCards.forEach(function (card, i) {
+        card.style.zIndex = String(deckTotal - i); // first card sits on top
+      });
+
+      var sizeTrack = function () {
+        // (N-1) peels of scroll budget, plus 100vh so the last card rests
+        deckTrack.style.height =
+          (deckTotal - 1) * PER + window.innerHeight + "px";
+      };
+
+      var ticking = false;
+      var render = function () {
+        ticking = false;
+        var scrolled = Math.max(0, -deckTrack.getBoundingClientRect().top);
+        var raw = Math.min(scrolled / PER, deckTotal - 1);
+        var top = Math.min(Math.floor(raw), deckTotal - 1);
+        var p = raw - top; // 0 -> 1 through the current card's peel
+        deckCards.forEach(function (card, i) {
+          if (i < top) {
+            // already peeled away above
+            card.style.transform = "translateY(-115%) scale(1)";
+            card.style.opacity = "0";
+          } else if (i === top) {
+            // peeling: slide up and fade
+            card.style.transform = "translateY(" + -p * 115 + "%) scale(1)";
+            card.style.opacity = String(1 - p);
+          } else {
+            // still in the deck — ease up one slot as the card above peels
+            var d = i - top;
+            var ty = baseTY(d) + (baseTY(d - 1) - baseTY(d)) * p;
+            var sc = baseSC(d) + (baseSC(d - 1) - baseSC(d)) * p;
+            card.style.transform =
+              "translateY(" + ty + "px) scale(" + sc + ")";
+            card.style.opacity = "1";
+          }
+        });
+      };
+      var onScroll = function () {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(render);
+        }
+      };
+
+      sizeTrack();
+      render();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", function () {
+        sizeTrack();
+        render();
       });
     }
   }
