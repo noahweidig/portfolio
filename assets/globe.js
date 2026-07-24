@@ -86,12 +86,12 @@
     var dotR = Math.max(1.4, size * 0.006);
     for (var j = 0; j < projected.length; j++) {
       var p = projected[j];
-      var depth = (p.z + 1) / 2; // 0 = far side, 1 = near side
+      const depth = (p.z + 1) / 2; // 0 = far side, 1 = near side
       // A flat disc on the surface projects to an ellipse: its minor axis lies
       // along the projected normal and shrinks by |normal·view| = |z2|, so
       // dots near the limb foreshorten to slivers instead of staying round.
-      var minor = dotR * Math.abs(p.z);
-      var angle = Math.atan2(-p.ny, p.nx); // screen-space normal direction
+      const minor = dotR * Math.abs(p.z);
+      const angle = Math.atan2(-p.ny, p.nx); // screen-space normal direction
       ctx.beginPath();
       ctx.ellipse(p.sx, p.sy, minor, dotR, angle, 0, Math.PI * 2);
       ctx.fillStyle = "rgba(" + DOT_COLOR + "," + (0.08 + 0.82 * depth) + ")";
